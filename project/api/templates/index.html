@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+        content="805921491568-g06a690135eeoseprps3sdsjnbrl2cqm.apps.googleusercontent.com">
+    <title>Node-Mysql package</title>
+</head>
+
+<body>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <p>Logged in as:</p>
+    <textarea id="info" rows="8" cols="120"></textarea>
+    <p>ID Token:</p>
+    <textarea id="id-token" rows="8" cols="120"></textarea>
+    <script>
+        function onSignIn(googleUser) {
+            console.log(googleUser);
+            var id_token = googleUser.getAuthResponse().id_token;
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            // console.log(id_token);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/api/login/');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('oauth-token', id_token);
+            xhr.onload = function () {
+                document.getElementById('info').textContent = JSON.stringify(JSON.parse(xhr.responseText).user, null, 2);
+                document.getElementById('id-token').textContent = JSON.stringify(JSON.parse(xhr.responseText).token, null, 2).replace(/['"]+/g, '');
+                console.log(JSON.parse(xhr.responseText).token);
+            };
+            xhr.send();
+        }
+    </script>
+</body>
+
+</html>

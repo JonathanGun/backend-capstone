@@ -1,11 +1,12 @@
 from api.application.base import BaseApp, BaseError
 from api.models import Travel
 
+
 class TravelApp(BaseApp):
-    
+
     def all(self):
         return Travel.objects.values()
-    
+
     def one(self, id):
         return Travel.objects.filter(id=id).values().first()
 

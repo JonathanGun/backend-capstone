@@ -10,15 +10,15 @@ logger = logging.getLogger()
 
 
 class BaseAdmin(DjangoQLSearchMixin, admin.ModelAdmin):
-    ordering = ('id',)
+    ordering = ("id",)
     list_per_page = 10
     list_display = []
-    readonly_fields = ['created_at', 'updated_at']
+    readonly_fields = ["created_at", "updated_at"]
 
 
 @admin.register(User)
 class UserAdmin(BaseAdmin):
-    ordering = ('google_id',)
+    ordering = ("google_id",)
     list_display = [f.name for f in User._meta.fields]
     readonly_fields = []
     can_delete = False
@@ -28,6 +28,7 @@ class UserAdmin(BaseAdmin):
 
     def has_add_permission(self, request, obj=None):
         return False
+
 
 @admin.register(Travel)
 class TravelAdmin(BaseAdmin):
@@ -41,6 +42,7 @@ class TravelAdmin(BaseAdmin):
     def has_add_permission(self, request, obj=None):
         return False
 
+
 @admin.register(Picture)
 class TravelAdmin(BaseAdmin):
     list_display = [f.name for f in Picture._meta.fields]
@@ -52,6 +54,7 @@ class TravelAdmin(BaseAdmin):
 
     def has_add_permission(self, request, obj=None):
         return False
+
 
 @admin.register(TravelLog)
 class TravelLogAdmin(BaseAdmin):

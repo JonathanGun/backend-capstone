@@ -46,7 +46,9 @@ class TravelLog(BaseModel):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     travel_name = models.CharField(max_length=127, null=True, blank=True)
     travel_boarding_datetime = models.DateTimeField(default=None, null=True, blank=True)
-    travel_departure_datetime = models.DateTimeField(default=None, null=True, blank=True)
+    travel_departure_datetime = models.DateTimeField(
+        default=None, null=True, blank=True
+    )
     travel_description = models.TextField(default=None, null=True, blank=True)
     travel_budget = models.FloatField(null=True, blank=True)
     travel_url = models.CharField(max_length=255, unique=True)

@@ -1,8 +1,9 @@
 from api.application.base import BaseApp, BaseError
 from api.models import Picture
 
+
 class PictureApp(BaseApp):
-    
+
     def all(self, id):
         return Picture.objects.filter(travel_id=id).values()
 

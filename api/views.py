@@ -22,7 +22,6 @@ from api.application.travel_log import TravelLogApp
 from api.utils import create_or_save
 from api.serializers import (
     TravelSerializer,
-    UserSerializer,
     TravelLogSerializer,
     PictureSerializer,
 )
